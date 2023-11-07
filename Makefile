@@ -332,6 +332,27 @@ else ifeq ($(platform), gcw0)
    GLES     = 1
    GL_LIB  := -lGLESv2
 
+# SF2000
+else ifeq ($(platform), sf2000)
+    TARGET := $(TARGET_NAME)_libretro_$(platform).a
+    MIPS=/opt/mips32-mti-elf/2019.09-03-2/bin/mips-mti-elf-
+    CC = $(MIPS)gcc
+    CXX = $(MIPS)g++
+    AR = $(MIPS)ar
+    FLAGS+=-EL -march=mips32 -mtune=mips32 -msoft-float -ffast-math -fomit-frame-pointer
+    FLAGS+=-G0 -mno-abicalls -fno-pic -ffreestanding
+    FLAGS+=-fno-use-cxa-atexit
+    FLAGS+=-DSF2000
+    FLAGS+= -U__INT32_TYPE__ -U __UINT32_TYPE__ -D__INT32_TYPE__=int
+    EXTRA_INCLUDES := -Ideps
+    CXXFLAGS=$(CFLAGS)
+    STATIC_LINKING = 1
+    NEED_THREADING = 0
+    HAVE_CDROM = 0
+    THREADED_RECOMPILER = 0
+    NEED_BPP = 16
+    HAVE_LIGHTREC = 0
+	
 # Emscripten
 else ifeq ($(platform), emscripten)
    TARGET  := $(TARGET_NAME)_libretro_$(platform).bc

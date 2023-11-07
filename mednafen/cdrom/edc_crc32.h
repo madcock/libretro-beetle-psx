@@ -2,6 +2,9 @@
 #define _EDC_CRC32_H
 
 #include <stdint.h>
+#if defined(SF2000)
+#include <sys/types.h>
+#endif
 
 #ifdef __cplusplus
 extern "C" {

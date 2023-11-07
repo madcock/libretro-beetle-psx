@@ -14,6 +14,9 @@
 #define __CDROM_H__
 
 #include <stdint.h>
+#if defined(SF2000)
+#include <sys/types.h>
+#endif
 #include <libchdr/chdconfig.h>
 
 /***************************************************************************

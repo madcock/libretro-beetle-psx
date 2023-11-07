@@ -2,6 +2,9 @@
 #define __MDFN_PSX_PSX_H
 
 #include <stdint.h>
+#if defined(SF2000)
+#include <sys/types.h>
+#endif
 
 #include "../masmem.h"
 #include "../mednafen-types.h"

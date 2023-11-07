@@ -24,6 +24,9 @@
 #define LIBRETRO_H__
 
 #include <stdint.h>
+#if defined(SF2000)
+#include <sys/types.h>
+#endif
 #include <stddef.h>
 #include <limits.h>
 

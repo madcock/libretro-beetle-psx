@@ -14,6 +14,9 @@
 #define __BITSTREAM_H__
 
 #include <stdint.h>
+#if defined(SF2000)
+#include <sys/types.h>
+#endif
 
 /***************************************************************************
  *  TYPE DEFINITIONS

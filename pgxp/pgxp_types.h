@@ -1,7 +1,12 @@
 #ifndef _PGXP_TYPES_H_
 #define _PGXP_TYPES_H_
 
+#if defined(SF2000)
+#include <stdint.h>
+#include <sys/types.h>
+#else
 #include "stdint.h"
+#endif
 
 typedef int8_t s8;
 typedef int16_t s16;

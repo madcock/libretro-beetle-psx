@@ -1,4 +1,7 @@
 #include <stdint.h>
+#if defined(SF2000)
+#include <sys/types.h>
+#endif
 #include <string.h>
 
 #include <string>

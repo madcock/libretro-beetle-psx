@@ -2,6 +2,9 @@
 #define __MDFN_CDROM_CDUTILITY_H
 
 #include <stdint.h>
+#if defined(SF2000)
+#include <sys/types.h>
+#endif
 #include <string.h>
 
 #include <boolean.h>

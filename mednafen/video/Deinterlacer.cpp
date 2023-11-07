@@ -84,8 +84,13 @@ void Deinterlacer::InternalProcess(MDFN_Surface *surface, MDFN_Rect &DisplayRect
 
   if(WeaveGood)
   {
+#if defined(SF2000)
+   const T* src = (const short unsigned int*) FieldBuffer->pixels + y * FieldBuffer->pitchinpix;
+   T* dest = (short unsigned int*) surface->pixels + ((y * 2) + (field ^ 1) + DisplayRect.y) * surface->pitchinpix + DisplayRect.x;
+#else
    const T* src = FieldBuffer->pixels + y * FieldBuffer->pitchinpix;
    T* dest = surface->pixels + ((y * 2) + (field ^ 1) + DisplayRect.y) * surface->pitchinpix + DisplayRect.x;
+#endif
    int32 *dest_lw = &LineWidths[(y * 2) + (field ^ 1) + DisplayRect.y];
 
    *dest_lw = LWBuffer[y];
@@ -95,8 +100,13 @@ void Deinterlacer::InternalProcess(MDFN_Surface *surface, MDFN_Rect &DisplayRect
   }
   else if(DeintType == DEINT_BOB)
   {
+#if defined(SF2000)
+   const T* src = (const short unsigned int*) surface->pixels + ((y * 2) + field + DisplayRect.y) * surface->pitchinpix + DisplayRect.x;
+   T* dest = (short unsigned int*) surface->pixels + ((y * 2) + (field ^ 1) + DisplayRect.y) * surface->pitchinpix + DisplayRect.x;
+#else
    const T* src = surface->pixels + ((y * 2) + field + DisplayRect.y) * surface->pitchinpix + DisplayRect.x;
    T* dest = surface->pixels + ((y * 2) + (field ^ 1) + DisplayRect.y) * surface->pitchinpix + DisplayRect.x;
+#endif
    const int32 *src_lw = &LineWidths[(y * 2) + field + DisplayRect.y];
    int32 *dest_lw = &LineWidths[(y * 2) + (field ^ 1) + DisplayRect.y];
 
@@ -107,14 +117,26 @@ void Deinterlacer::InternalProcess(MDFN_Surface *surface, MDFN_Rect &DisplayRect
   else
   {
    const int32 *src_lw = &LineWidths[(y * 2) + field + DisplayRect.y];
+#if defined(SF2000)
+   const T* src = (const short unsigned int*) surface->pixels + ((y * 2) + field + DisplayRect.y) * surface->pitchinpix + DisplayRect.x;
+#else
    const T* src = surface->pixels + ((y * 2) + field + DisplayRect.y) * surface->pitchinpix + DisplayRect.x;
+#endif
    const int32 dly = ((y * 2) + (field + 1) + DisplayRect.y);
+#if defined(SF2000)
+   T* dest = (short unsigned int*) surface->pixels + dly * surface->pitchinpix + DisplayRect.x;
+#else
    T* dest = surface->pixels + dly * surface->pitchinpix + DisplayRect.x;
+#endif
 
    if(y == 0 && field)
    {
     T black = MAKECOLOR(0, 0, 0, 0);
+#if defined(SF2000)
+    T* dm2 = (short unsigned int*) surface->pixels + (dly - 2) * surface->pitchinpix;
+#else
     T* dm2 = surface->pixels + (dly - 2) * surface->pitchinpix;
+#endif
 
     LineWidths[dly - 2] = *src_lw;
 
@@ -138,8 +160,13 @@ void Deinterlacer::InternalProcess(MDFN_Surface *surface, MDFN_Rect &DisplayRect
   if(DeintType == DEINT_WEAVE)
   {
    const int32 *src_lw = &LineWidths[(y * 2) + field + DisplayRect.y];
+#if defined(SF2000)
+   const T* src = (const short unsigned int*) surface->pixels + ((y * 2) + field + DisplayRect.y) * surface->pitchinpix + DisplayRect.x;
+   T* dest = (short unsigned int*) FieldBuffer->pixels + y * FieldBuffer->pitchinpix;
+#else
    const T* src = surface->pixels + ((y * 2) + field + DisplayRect.y) * surface->pitchinpix + DisplayRect.x;
    T* dest = FieldBuffer->pixels + y * FieldBuffer->pitchinpix;
+#endif
 
    memcpy(dest, src, *src_lw * sizeof(uint32));
    LWBuffer[y] = *src_lw;

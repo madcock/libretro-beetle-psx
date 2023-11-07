@@ -23,6 +23,10 @@ extern "C"
 {
 #endif /* __cplusplus */
 
+#if defined(SF2000)
+#include <stdint.h>
+#include <sys/types.h>
+#endif
 #include "ivorbiscodec.h"
 
 #define CHUNKSIZE 1024

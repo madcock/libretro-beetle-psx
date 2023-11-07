@@ -27,6 +27,9 @@
 #define RARCH_MAX_SUBSYSTEM_ROMS 10
 
 #include <stdint.h>
+#if defined(SF2000)
+#include <sys/types.h>
+#endif
 #include <boolean.h>
 #include <retro_inline.h>
 
@@ -201,7 +204,7 @@ typedef struct
 #      define PRI_SIZET "u"
 #    endif
 #  endif
-#elif defined(PS2)
+#elif defined(PS2) || defined (SF2000)
 #  define PRI_SIZET "u"
 #else
 #  if (SIZE_MAX == 0xFFFF)

@@ -33,7 +33,12 @@
 #include <basetsd.h>
 typedef UINT32 uint32_t;
 #else
+#if defined(SF2000)
+#include <stdint.h>
+#include <sys/types.h>
+#else
 #include <inttypes.h>
+#endif
 #endif
 
 #define DES_ENCRYPT     1

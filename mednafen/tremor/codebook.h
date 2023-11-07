@@ -19,6 +19,10 @@
 #define _V_CODEBOOK_H_
 
 #include "ogg.h"
+#if defined(SF2000)
+#include <stdint.h>
+#include <sys/types.h>
+#endif
 
 /* This structure encapsulates huffman and VQ style encoding books; it
    doesn't do anything specific to either.

@@ -22,6 +22,10 @@
 
 #include <stdlib.h>
 #include <string.h>
+#if defined(SF2000)
+#include <stdint.h>
+#include <sys/types.h>
+#endif
 #include "ogg.h"
 
 /* A complete description of Ogg framing exists in docs/framing.html */

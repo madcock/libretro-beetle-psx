@@ -22,6 +22,9 @@
  */
 
 #include <stdint.h>
+#if defined(SF2000)
+#include <sys/types.h>
+#endif
 
 /***
  *** EDC checksum used in CDROM sectors
