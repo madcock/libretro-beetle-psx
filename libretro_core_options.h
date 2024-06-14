@@ -384,14 +384,15 @@ struct retro_core_option_v2_definition option_defs_us[] = {
    },
    {
       BEETLE_OPT(analog_toggle),
-      "Enable DualShock Analog Mode Toggle",
+      "DualShock Analog Mode Toggle",
       NULL,
-      "When the input device type is DualShock, this option allows the emulated DualShock to be toggled between DIGITAL and ANALOG mode like original hardware. When disabled, the DualShock is locked to ANALOG mode and when enabled, the DualShock can be toggled between DIGITAL and ANALOG mode by using the selected buttons combination.",
+      "When the input device type is DualShock, this option allows the emulated DualShock to be toggled between DIGITAL and ANALOG mode like original hardware. Mode can also be toggled by using the selected button combination.",
       NULL,
       "input",
       {
          { "disabled", NULL },
          { "enabled",  NULL },
+         { "enabled-analog", "Default-Analog" },
          { NULL, NULL },
       },
       "disabled"
@@ -400,7 +401,7 @@ struct retro_core_option_v2_definition option_defs_us[] = {
       BEETLE_OPT(analog_toggle_combo),
       "DualShock Analog Mode Combo",
       NULL,
-      "Choose the buttons combination that will be used to toggle between DIGITAL and ANALOG mode for the emulated DualShock. Only works when 'Enable DualShock Analog Mode Toggle' is enabled.",
+      "Choose the button combination that will be used to toggle between DIGITAL and ANALOG mode for the emulated DualShock.",
       NULL,
       "input",
       {
@@ -422,7 +423,7 @@ struct retro_core_option_v2_definition option_defs_us[] = {
       BEETLE_OPT(analog_toggle_hold),
       "DualShock Analog Mode Combo Hold Delay",
       NULL,
-      "Sets the hold time for the analog mode combo buttons. Only works when 'Enable DualShock Analog Mode Toggle' is enabled.",
+      "Set the hold time for the analog mode combo buttons.",
       NULL,
       "input",
       {
@@ -1031,6 +1032,24 @@ struct retro_core_option_v2_definition option_defs_us[] = {
       "100%(native)"
    },
    {
+      BEETLE_OPT(gpu_overclock),
+      "GPU Rasterizer Overclock",
+      NULL,
+      "Enable overclocking of the 2D rasterizer contained within the emulated PSX's GPU. Does not improve 3D rendering, and in general has little effect.",
+      NULL,
+      "hacks",
+      {
+         { "1x(native)", "1x (Native)" },
+         { "2x",         NULL },
+         { "4x",         NULL },
+         { "8x",         NULL },
+         { "16x",        NULL },
+         { "32x",        NULL },
+         { NULL, NULL },
+      },
+      "1x(native)"
+   },
+   {
       BEETLE_OPT(gte_overclock),
       "GTE Overclock",
       NULL,
@@ -1212,6 +1231,21 @@ struct retro_core_option_v2_definition option_defs_us[] = {
       "disabled"
    },
    {
+      BEETLE_OPT(aspect_ratio),
+      "Core Aspect Ratio",
+      NULL,
+      "Choose core provided aspect ratio. This setting is ignored when the Widescreen Mode Hack or Display Full VRAM options are enabled.",
+      NULL,
+      "video",
+      {
+         { "corrected", "Corrected" },
+         { "uncorrected", "Uncorrected" },
+         { "4:3",  "Force 4:3" },
+         { "ntsc", "Force NTSC" },
+      },
+      "corrected"
+   },
+   {
       BEETLE_OPT(crop_overscan),
       "Crop Overscan",
       NULL,
@@ -1279,7 +1313,7 @@ struct retro_core_option_v2_definition option_defs_us[] = {
          { "-3px",     NULL },
          { "-2px",     NULL },
          { "-1px",     NULL },
-         { "disabled", "0 (Default)" },
+         { "disabled", "0" },
          { "+1px",     NULL },
          { "+2px",     NULL },
          { "+3px",     NULL },
@@ -1345,7 +1379,7 @@ struct retro_core_option_v2_definition option_defs_us[] = {
          { "-3",       NULL },
          { "-2",       NULL },
          { "-1",       NULL },
-         { "0",        "0 (Default)" },
+         { "0",        "0" },
          { "+1",       NULL },
          { "+2",       NULL },
          { "+3",       NULL },
@@ -1392,39 +1426,6 @@ struct retro_core_option_v2_definition option_defs_us[] = {
    },
 #endif
    {
-      BEETLE_OPT(gpu_overclock),
-      "GPU Rasterizer Overclock",
-      NULL,
-      "Enable overclocking of the 2D rasterizer contained within the emulated PSX's GPU. Does not improve 3D rendering, and in general has little effect.",
-      NULL,
-      "video",
-      {
-         { "1x(native)", "1x (Native)" },
-         { "2x",         NULL },
-         { "4x",         NULL },
-         { "8x",         NULL },
-         { "16x",        NULL },
-         { "32x",        NULL },
-         { NULL, NULL },
-      },
-      "1x(native)"
-   },
-   {
-      BEETLE_OPT(aspect_ratio),
-      "Core Aspect Ratio",
-      NULL,
-      "Choose core provided aspect ratio. This setting is ignored when the Widescreen Mode Hack or Display Full VRAM options are enabled.",
-      NULL,
-      "video",
-      {
-         { "corrected", "Corrected" },
-         { "uncorrected", "Uncorrected" },
-         { "4:3",  "Force 4:3" },
-         { "ntsc", "Force NTSC" },
-      },
-      "corrected"
-   },
-   {
       BEETLE_OPT(initial_scanline),
       "Initial Scan Line - NTSC",
       NULL,
@@ -1432,7 +1433,7 @@ struct retro_core_option_v2_definition option_defs_us[] = {
       NULL,
       "video",
       {
-         { "0",  NULL },
+         { "0",  "0 (Default)" },
          { "1",  NULL },
          { "2",  NULL },
          { "3",  NULL },
@@ -1527,7 +1528,7 @@ struct retro_core_option_v2_definition option_defs_us[] = {
       NULL,
       "video",
       {
-         { "0",  NULL },
+         { "0",  "0 (Default)" },
          { "1",  NULL },
          { "2",  NULL },
          { "3",  NULL },
